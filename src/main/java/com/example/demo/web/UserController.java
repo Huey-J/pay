@@ -5,6 +5,7 @@ import com.example.demo.web.dto.UserResponseDto;
 import com.example.demo.web.dto.UserRequestDto;
 import com.example.demo.web.service.JwtTokenProvider;
 import com.example.demo.web.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
 
+    @ApiOperation(value = "회원가입")
     @PostMapping("/signup")
     public ResponseEntity signUp(@RequestBody UserRequestDto requestDto) {
         UserResponseDto responseDto = userService.save(requestDto);
@@ -26,6 +28,7 @@ public class UserController {
         }
     }
 
+    @ApiOperation(value = "로그인")
     @PostMapping("/login")
     public ResponseEntity logIn(@RequestBody UserRequestDto requestDto) {
         UserResponseDto responseDto = userService.findByEmailAndPassword(requestDto);
@@ -36,6 +39,7 @@ public class UserController {
         }
     }
 
+    @ApiOperation(value = "로그아웃")
     @PostMapping("/logout")
     public ResponseEntity logOut() {
         return new ResponseEntity(null, HttpStatus.OK);
