@@ -31,18 +31,22 @@ public class Ledger {
     private Boolean isDeleted;
 
     @Column
+    private LocalDateTime paidDate;
+
+    @Column
     private LocalDateTime createdDate;
 
     @Column
     private LocalDateTime modifiedDate;
 
     @Builder
-    public Ledger(Long userId, Integer price, String title, String memo, Boolean isDeleted, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+    public Ledger(Long userId, Integer price, String title, String memo, Boolean isDeleted, LocalDateTime paidDate, LocalDateTime createdDate, LocalDateTime modifiedDate) {
         this.userId = userId;
         this.price = price;
         this.title = title;
         this.memo = memo;
         this.isDeleted = isDeleted;
+        this.paidDate = paidDate;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
     }
