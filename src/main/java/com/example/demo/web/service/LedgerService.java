@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -46,6 +47,24 @@ public class LedgerService {
                 .stream()
                 .map(LedgerResponseDto::new)
                 .collect(Collectors.toList()));
+    }
+
+    @Transactional
+    public LedgerResponseDto update(Long id, LedgerSaveRequestDto requestDto) {
+        Optional<Ledger> entity = ledgerRepository.findById(id);
+
+        if (entity.isPresent()) {
+            Ledger updatedEntity = entity.get();
+
+            updatedEntity.setPrice(requestDto.getPrice());
+            updatedEntity.setTitle(requestDto.getTitle());
+            updatedEntity.setMemo(requestDto.getMemo());
+            updatedEntity.setPaidDate(requestDto.getPaidDate());
+            updatedEntity.setModifiedDate(LocalDateTime.now());
+
+            return new LedgerResponseDto(updatedEntity);
+        }
+        return null;
     }
 
 

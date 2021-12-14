@@ -44,5 +44,14 @@ public class LedgerController {
         return new ResponseEntity(ledgerService.findAll(token), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "가계부 수정")
+    @PatchMapping("/{id}")
+    public ResponseEntity updateById(@PathVariable(name="id") Long id,
+                                     @RequestBody LedgerSaveRequestDto requestDto) {
+        return new ResponseEntity(ledgerService.update(id, requestDto), HttpStatus.OK);
+    }
+
+
+
 
 }
