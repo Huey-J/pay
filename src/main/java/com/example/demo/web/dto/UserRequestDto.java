@@ -11,12 +11,12 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserSaveRequestDto {
+public class UserRequestDto {
     private String email;
     private String password;
 
     @Builder
-    public UserSaveRequestDto(String email, String password) {
+    public UserRequestDto(String email, String password) {
         this.email = email;
         this.password = password;
     }

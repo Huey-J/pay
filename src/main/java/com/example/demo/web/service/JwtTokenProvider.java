@@ -33,16 +33,14 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-
     // Jwt 토큰에서 회원 구별 정보 추출
     public String getUserIdFromJwt(String jwt) {
         return getClaims(jwt).getBody().get("user_id").toString();
     }
     // Jwt 토큰에서 회원 구별 정보 추출
-    public String getEmail(String jwt) {
+    public String getEmailFromJwt(String jwt) {
         return getClaims(jwt).getBody().get("email").toString();
     }
-
 
     // Jwt 토큰의 유효성 + 만료일자 확인
     public boolean validateToken(String jwtToken) {
