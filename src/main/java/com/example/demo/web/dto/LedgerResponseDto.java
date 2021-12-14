@@ -8,24 +8,18 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class LedgerDetailResponseDto {
+public class LedgerResponseDto {
     private Long id;
     private Integer price;
     private String title;
-    private String memo;
-    private Boolean isDeleted;
     private LocalDateTime paidDate;
-    private LocalDateTime createdDate;
-    private LocalDateTime modifiedDate;
+    private Boolean isDeleted;
 
-    public LedgerDetailResponseDto(Ledger entity) {
+    public LedgerResponseDto(Ledger entity) {
         this.id = entity.getId();
         this.price = entity.getPrice();
         this.title = entity.getTitle();
-        this.memo = entity.getMemo();
-        this.isDeleted = entity.getIsDeleted();
         this.paidDate = entity.getPaidDate();
-        this.createdDate = entity.getCreatedDate();
-        this.modifiedDate = entity.getModifiedDate();
+        this.isDeleted = entity.getIsDeleted();
     }
 }
