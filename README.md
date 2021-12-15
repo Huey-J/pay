@@ -11,9 +11,8 @@ docs: http://localhost:8080/swagger-ui.html
 
 # ER-Diagram
 
-<div align="center">
 ![pay_erd](https://user-images.githubusercontent.com/77145383/146196945-e886cc01-bebc-437d-aefb-3e4d9f119a30.png)
-</div>
+
 
 # Setting
 
@@ -24,3 +23,4 @@ mysql -u root -p
 -- Create Database
 CREATE DATABASE viewer DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 ```
+
