@@ -3,7 +3,6 @@ package com.example.demo.web.service;
 import com.example.demo.model.ledger.Ledger;
 import com.example.demo.model.ledger.LedgerRepository;
 import com.example.demo.web.dto.*;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,21 +17,25 @@ public class LedgerService {
     private final LedgerRepository ledgerRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
-    // TODO
-    //  API추가: 삭제
-    //  EXCEPTION 처리
-    //  jwt-user_id 검증
-
     @Transactional
-    public SaveResponseDto save(LedgerSaveRequestDto requestDto) {
+    public SaveResponseDto save(LedgerSaveRequestDto requestDto, String token) throws Exception {
+        Long userId = Long.parseLong(jwtTokenProvider.getUserIdFromJwt(token));
+
+        if (userId != requestDto.getUserId()) {
+            throw new Exception("No permission for this request");
+        }
         return new SaveResponseDto(ledgerRepository.save(requestDto.toEntity()).getId());
     }
 
     @Transactional(readOnly = true)
-    public LedgerDetailResponseDto findById(Long id) {
+    public LedgerDetailResponseDto findById(Long id, String token) throws Exception {
         Optional<Ledger> entity = ledgerRepository.findById(id);
+        Long userId = Long.parseLong(jwtTokenProvider.getUserIdFromJwt(token));
 
         if (entity.isPresent()) {
+            if (userId != entity.get().getUserId()) {
+                throw new Exception("No permission for this request");
+            }
             return new LedgerDetailResponseDto(entity.get());
         }
         return null;
@@ -49,11 +52,16 @@ public class LedgerService {
     }
 
     @Transactional
-    public LedgerResponseDto update(Long id, LedgerSaveRequestDto requestDto) throws Exception {
+    public LedgerResponseDto update(Long id, LedgerSaveRequestDto requestDto, String token) throws Exception {
         Optional<Ledger> entity = ledgerRepository.findById(id);
+        Long userId = Long.parseLong(jwtTokenProvider.getUserIdFromJwt(token));
 
         if (entity.isPresent()) {
             Ledger updatedEntity = entity.get();
+
+            if (userId != updatedEntity.getUserId()) {
+                throw new Exception("No permission for this request");
+            }
 
             updatedEntity.setPrice(requestDto.getPrice());
             updatedEntity.setTitle(requestDto.getTitle());
@@ -68,12 +76,19 @@ public class LedgerService {
     }
 
     @Transactional
-    public LedgerResponseDto delete(Long id) throws Exception {
+    public LedgerResponseDto delete(Long id, String token) throws Exception {
         Optional<Ledger> entity = ledgerRepository.findById(id);
+        Long userId = Long.parseLong(jwtTokenProvider.getUserIdFromJwt(token));
 
         if (entity.isPresent()) {
             Ledger updatedEntity = entity.get();
+
+            if (userId != updatedEntity.getUserId()) {
+                throw new Exception("No permission for this request");
+            }
+
             updatedEntity.setIsDeleted(Boolean.TRUE);
+
             return new LedgerResponseDto(updatedEntity);
         } else {
             throw new Exception("can't find ledger");

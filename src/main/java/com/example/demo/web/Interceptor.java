@@ -14,7 +14,6 @@ public class Interceptor extends HandlerInterceptorAdapter {
                              HttpServletResponse response,
                              Object handler) throws Exception {
 //        if (true) return true;
-        System.out.println("Interceptor 실행");
 
         // 토큰 검사
         JwtTokenProvider jwtTokenProvider = new JwtTokenProvider();
