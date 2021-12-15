@@ -19,7 +19,6 @@ public class LedgerService {
     private final JwtTokenProvider jwtTokenProvider;
 
     // TODO
-    //  API추가: 수정
     //  API추가: 삭제
     //  EXCEPTION 처리
     //  jwt-user_id 검증
@@ -50,7 +49,7 @@ public class LedgerService {
     }
 
     @Transactional
-    public LedgerResponseDto update(Long id, LedgerSaveRequestDto requestDto) {
+    public LedgerResponseDto update(Long id, LedgerSaveRequestDto requestDto) throws Exception {
         Optional<Ledger> entity = ledgerRepository.findById(id);
 
         if (entity.isPresent()) {
@@ -63,9 +62,21 @@ public class LedgerService {
             updatedEntity.setModifiedDate(LocalDateTime.now());
 
             return new LedgerResponseDto(updatedEntity);
+        } else {
+            throw new Exception("can't find ledger");
         }
-        return null;
     }
 
+    @Transactional
+    public LedgerResponseDto delete(Long id) throws Exception {
+        Optional<Ledger> entity = ledgerRepository.findById(id);
 
+        if (entity.isPresent()) {
+            Ledger updatedEntity = entity.get();
+            updatedEntity.setIsDeleted(Boolean.TRUE);
+            return new LedgerResponseDto(updatedEntity);
+        } else {
+            throw new Exception("can't find ledger");
+        }
+    }
 }
