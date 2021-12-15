@@ -3,7 +3,6 @@ package com.example.demo.web;
 import com.example.demo.web.dto.ErrorResponseDto;
 import com.example.demo.web.dto.UserResponseDto;
 import com.example.demo.web.dto.UserRequestDto;
-import com.example.demo.web.service.JwtTokenProvider;
 import com.example.demo.web.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
