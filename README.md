@@ -21,6 +21,5 @@ docs: http://localhost:8080/swagger-ui.html
 mysql -u root -p
 
 -- Create Database
-CREATE DATABASE viewer DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+CREATE DATABASE pay DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 ```
-
