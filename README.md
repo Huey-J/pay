@@ -23,3 +23,9 @@ mysql -u root -p
 -- Create Database
 CREATE DATABASE pay DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 ```
+
+## Docker
+
+```shell
+docker-compose up
+```
